@@ -29,13 +29,8 @@ define('VIDEO_ROOT', '/');
 # Prepended to the path to the Video.js library files
 define('VIDEO_JS_ROOT', '/video-js');
 
-# The URL to the jQuery player. (May be a complete URL, for example, if you
-# use Google APIs, you can use that. Otherwise, it is relative to the current
-# page.)
-define('JQUERY_URL', '/script/jquery-2.0.2.min.js');
-
 # The URL to load the JavaScript for the video player.
-define('XVVIDEO_URL', '/script/xvvideo.min.js');
+define('XVVIDEO_URL', '/script/xvvideo.rollup.js');
 
 # The stylesheet to use
 define('CSS_SHEETS', '/style/site.min.css');
@@ -224,7 +219,7 @@ function parse_video_metadata($path) {
 }
 
 function version_footer() {
-	echo '<div id="version">xvwebvideo 0.5; <a href="http://www.videojs.com/">video.js 4.0</a></div>';
+	echo '<div id="version"><a href="https://github.com/Xenoveritas/xvwebvideo">xvwebvideo</a> 0.5; <a href="http://www.videojs.com/">video.js</a> 4.0</div>';
 }
 
 $path = $_GET['q'];
@@ -324,7 +319,7 @@ if (!is_object($video)) {
 <?php
 }
 if (isset($video->previous) || isset($video->next)) {
-	echo '<ul class="nav-buttons">';
+	echo '<ul class="nav-buttons" id="nav-buttons">';
 	echo '<li class="button button-previous';
 	if (isset($video->previous)) {
 		echo '"><a href="', htmlspecialchars($video->previous), '">Previous</a>';
@@ -369,7 +364,7 @@ if ((!is_array($formats)) || count($formats) == 0) {
 <?php
 # If there is a next video, display the auto-play option
 if (isset($video->next)) {
-	?><input type="checkbox" id="autonext" name="autonext" value="on"<?php if ($autonext) { echo 'checked="checked"'; }?>>
+	?><input type="checkbox" id="autonext" name="autonext" value="on"<?php if ($autonext) { echo ' checked'; }?>>
 <label for="autonext">Automatically play next video when this video completes</label><?php
 }
 ?>
@@ -388,10 +383,7 @@ if ($html5) {
 <div id="html5_using"></div>
 </div>
 <?php version_footer(); ?>
-<!--
-<script type="application/javascript" src="<?php echo JQUERY_URL; ?>"></script>
 <script type="application/javascript" src="<?php echo XVVIDEO_URL; ?>"></script>
--->
 </body>
 </html>
 <?php

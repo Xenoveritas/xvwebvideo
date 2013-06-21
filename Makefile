@@ -10,17 +10,22 @@ MARKED=marked
 INSTALL_DIR=deploy
 video_root ?=
 
-JQUERY_EXTERNS=
+JQUERY=jquery-2.0.2.min.js
+CLOSURE_EXTERNS=jquery-1.9.js video-js-externs.js
+CLOSURE_EXTERNS_ARG=$(addprefix --externs ,$(CLOSURE_EXTERNS))
 
 VIDEO_JS_FILES = $(addprefix video-js/,video.js video-js.min.css video-js.swf video-js.png)
 
-minify: setup-closure xvvideo.min.js check-flash.min.js site.min.css
+minify: setup-closure xvvideo.rollup.js site.min.css
 
-xvvideo.min.js: xvvideo.js
-	$(CLOSURE) --js xvvideo.js --js_output_file xvvideo.min.js $(JQUERY_EXTERNS)
+xvvideo.min.js: xvvideo.js $(CLOSURE_EXTERNS)
+	$(CLOSURE) --js xvvideo.js --js_output_file xvvideo.min.js $(CLOSURE_EXTERNS_ARG)
 
-check-flash.min.js: check-flash.js check-flash-auto.js
-	$(CLOSURE) --js check-flash.js --js check-flash-auto.js --js_output_file check-flash.min.js $(JQUERY_EXTERNS)
+check-flash.min.js: check-flash.js check-flash-auto.js $(CLOSURE_EXTERNS)
+	$(CLOSURE) --js check-flash.js --js check-flash-auto.js --js_output_file check-flash.min.js $(CLOSURE_EXTERNS_ARG)
+
+xvvideo.rollup.js: xvvideo.min.js check-flash.min.js
+	cat jquery-2.0.2.min.js xvvideo.min.js check-flash.min.js > xvvideo.rollup.js
 
 site.min.css: site.less
 	$(LESSC) -x site.less > site.min.css
@@ -56,7 +61,7 @@ install: all
 	mkdir -p $(INSTALL_DIR)/video-js/font
 	cp video-js/font/vjs* $(INSTALL_DIR)/video-js/font
 	mkdir -p $(INSTALL_DIR)/script
-	cp jquery-2.0.2.min.js xvvideo.min.js $(INSTALL_DIR)/script
+	cp xvvideo.rollup.js $(INSTALL_DIR)/script
 	mkdir -p $(INSTALL_DIR)/style
 	cp site.min.css $(INSTALL_DIR)/style
 	mkdir -p $(INSTALL_DIR)/play

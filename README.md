@@ -4,11 +4,8 @@ xvwebvideo
 This is the code behind http://video.xenoveritas.org/ - for the most
 part.
 
-A script for encoding video exists in the "encoding" directory, but it's
-old and I mostly don't use it any more. The primary pieces of interest
-are instead the scripts behind running the video.
-
-The play.php script embeds video information into a web page.
+The play.php script embeds video information, stored as a JSON file,
+into a web page that can then play back a video.
 
 Required Software
 -----------------
