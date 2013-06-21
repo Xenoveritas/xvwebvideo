@@ -1,0 +1,11 @@
+# Sample htaccess using ModRewrite to rewrite paths
+# Rename to ".htaccess" to use in Apache
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Rewrite current-style URLs of the form 'index.php?q=x'.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  #RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ /play/play.php?q=$1 [L,QSA]
+</IfModule>

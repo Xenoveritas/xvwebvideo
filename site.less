@@ -1,0 +1,95 @@
+// Basic colors.
+@backgroundColor: #333;
+@color: #CCC;
+@borderColor: #777;
+
+@footerColor: darken(@color, 20%);
+
+@buttonBackground: lighten(@backgroundColor, 10%);
+@buttonColor: @color;
+@buttonBorder: @buttonBackground;
+
+@navButtonWidth: 8em;
+
+html {
+	background-color: @backgroundColor;
+	color: @color;
+	font-family: "Lucidia Grande", Arial, sans-serif;
+	font-size: 10pt;
+}
+
+h1 {
+	border-bottom: solid 1px #777;
+}
+
+#video-container { text-align: center; }
+
+#video_wrapper, #video { margin: 0 auto; }
+
+#html5, #version { font-size: 80%; color: @footerColor; }
+
+#version { text-align: right; }
+#version a { text-decoration: none; color: @footerColor; }
+#version a:hover { text-decoration: underline; }
+
+a { color: #66C; }
+a:visited { color: #C6C; }
+
+.nav-buttons {
+	display: block;
+	margin: 1em 0;
+	padding: 0;
+	clear: both;
+	text-align: center;
+	li {
+		display: inline-block;
+	}
+}
+
+.button {
+	display: block;
+	margin: 0.5em;
+	width: @navButtonWidth;
+	background-color: @buttonBackground;
+	border: solid 1px @buttonBorder;
+	color: @buttonColor;
+	cursor: pointer;
+	text-align: center;
+	padding: 0.5em;
+}
+
+.button.disabled {
+	background-color: @backgroundColor;
+	border-color: @buttonBackground;
+	color: @buttonBackground;
+	cursor: default;
+}
+
+.button a, .button a:visited {
+	color: @buttonColor;
+	text-decoration: none;
+}
+
+.button-previous:before {
+	content: "\25C0";
+	padding: 0 0.5em 0 0;
+}
+
+.button-next:after {
+	content: "\25BA";
+	padding: 0 0 0 0.5em;
+}
+
+#metadata, #html5 { clear: left; margin: 1em 0; }
+
+#metadata div { margin: 1em 0; }
+
+#metadata {
+	border-top: solid 1px @borderColor;
+	margin: 1em 0;
+}
+
+#description {
+	border-bottom: solid 1px @borderColor;
+	padding: 0 0 1em 0;
+}

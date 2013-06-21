@@ -1,0 +1,12 @@
+# Generated artifacts:
+xvvideo.min.js
+check-flash.min.js
+deploy
+site.min.css
+README.html
+
+# Closure compiler:
+compiler.jar
+
+# From the previous SVN version:
+.svn
